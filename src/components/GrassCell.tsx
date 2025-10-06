@@ -1,36 +1,33 @@
-import { useEffect, useState } from "react";
+
 import GrassImgSrc from "../assets/grass/GRASS+.png";
 import WaterImgSrc from "../assets/water/water.jpg";
+import { useGrassTilesetInfo } from "../hooks/useGrassTilesetInfo";
 
-const SPRITE_SIZE = 16; // taille originale d'une tuile
-const TILE_SIZE = 64;   // taille d'affichage dans le jeu
+const TILE_SIZE = 64;
 
 export default function GrassCell({ style, showWaterBackground }: { style?: React.CSSProperties, showWaterBackground?: boolean }) {
-  const [tilesetInfo, setTilesetInfo] = useState<{cols: number, rows: number, total: number}>({cols:0, rows:0, total:0});
-
-  // Charger l'image pour récupérer ses dimensions
-  useEffect(() => {
-    const img = new Image();
-    img.src = GrassImgSrc;
-    img.onload = () => {
-      const cols = Math.floor(img.width / SPRITE_SIZE);
-      const rows = Math.floor(img.height / SPRITE_SIZE);
-      const total = cols * rows;
-      setTilesetInfo({ cols, rows, total });
-      console.log("Tileset info:", { width: img.width, height: img.height, cols, rows, total });
-    };
-  }, []);
-
-  // Variante aléatoire stable
-  // const variant = useMemo(() => Math.floor(Math.random() * (tilesetInfo.total || 1)), [tilesetInfo.total]);
-
-  // const col = variant % (tilesetInfo.cols || 1);
-  // const row = Math.floor(variant / (tilesetInfo.cols || 1));
-const col = 0;
+  const tilesetInfo = useGrassTilesetInfo();
+  const col = 0;
   const row = 0;
-  // Calcul zoomé
-  const backgroundWidth = (tilesetInfo.cols || 1) * TILE_SIZE;
-  const backgroundHeight = Math.ceil((tilesetInfo.total || 1) / (tilesetInfo.cols || 1)) * TILE_SIZE;
+
+  if (tilesetInfo.cols === 0 || tilesetInfo.rows === 0) {
+    // Image pas encore chargée, on affiche rien ou un fond neutre
+    return (
+      <div
+        className="cell grass"
+        style={{
+          width: TILE_SIZE,
+          height: TILE_SIZE,
+          position: "relative",
+          background: "none",
+          ...style,
+        }}
+      />
+    );
+  }
+
+  const backgroundWidth = tilesetInfo.cols * TILE_SIZE;
+  const backgroundHeight = Math.ceil(tilesetInfo.total / tilesetInfo.cols) * TILE_SIZE;
   const backgroundPosition = `-${col * TILE_SIZE}px -${row * TILE_SIZE}px`;
 
   return (
