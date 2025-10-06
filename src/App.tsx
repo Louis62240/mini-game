@@ -1,7 +1,8 @@
 import GameMap from "./components/GameMap"
-import './App.css'
-import './Water.css'
-import './Grass.css'
+import './assets/style/App.css'
+import './assets/style/Water.css'
+import './assets/style/Grass.css'
+
 function App() {
 
   return (
