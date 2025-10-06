@@ -1,0 +1,70 @@
+.water {
+  position: relative;
+  background-image: url('./assets/water/water.jpg');
+  background-size: cover;
+  background-repeat: repeat;
+  overflow: hidden;
+  animation: wave 8s infinite linear, shimmer 12s infinite ease-in-out;
+  border: none !important;
+}
+
+/* --- Mouvement de vagues global --- */
+@keyframes wave {
+  0%   { background-position: 0 0; }
+  50%  { background-position: 48px 24px; }
+  100% { background-position: 0 0; }
+}
+
+/* --- Variation douce de teinte et de luminosité --- */
+@keyframes shimmer {
+  0%, 100% { filter: hue-rotate(0deg) brightness(1); }
+  50%      { filter: hue-rotate(8deg) brightness(1.15); }
+}
+
+/* --- Profondeur subtile homogène --- */
+.water::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-radial-gradient(
+    circle at 50% 50%,
+    rgba(0, 40, 100, 0.25) 0px,
+    rgba(0, 60, 160, 0.15) 80px,
+    rgba(0, 20, 80, 0.3) 160px
+  );
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+  animation: depth 16s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes depth {
+  0%   { background-position: 0 0; }
+  100% { background-position: 96px 64px; }
+}
+
+/* --- Reflets lumineux mouvants (comme des éclats de soleil) --- */
+.water::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.18), transparent 70%),
+              radial-gradient(circle at 70% 60%, rgba(255,255,255,0.15), transparent 70%);
+  mix-blend-mode: soft-light;
+  animation: lightFlow 9s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes lightFlow {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0.6; }
+  50%  { transform: translate(16px, 12px) scale(1.05); opacity: 0.9; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+}
+
+/* --- Option : légères variations de profondeur aléatoire --- */
+.water-deep {
+  filter: brightness(0.85) hue-rotate(-8deg);
+}
+.water-shallow {
+  filter: brightness(1.1) saturate(1.2);
+}

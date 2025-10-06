@@ -1,0 +1,13 @@
+.grass {
+  width: 64px;
+  height: 64px;
+  background-image: url('./assets/grass/Grass+.png');
+  background-size: 512px 512px; /* zoom : tileset * facteur 4 pour que 16px → 64px */
+  background-repeat: no-repeat;
+  background-position: 0 0; /* première tuile */
+  image-rendering: pixelated; /* garde les pixels nets */
+}
+.grass-1 { background-position: 0 0; }
+.grass-2 { background-position: -64px 0; }  /* 16*4 */
+.grass-3 { background-position: -128px 0; } /* 32*4 */
+.grass-4 { background-position: -192px 0; } /* 48*4 */
