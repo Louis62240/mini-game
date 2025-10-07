@@ -1,12 +1,10 @@
 
 import GrassImgSrc from "../assets/grass/GRASS+.png";
 import WaterImgSrc from "../assets/water/water.jpg";
-import { useGrassTilesetInfo } from "../hooks/useGrassTilesetInfo";
 
 const TILE_SIZE = 64;
 
-export default function GrassCell({ style, showWaterBackground }: { style?: React.CSSProperties, showWaterBackground?: boolean }) {
-  const tilesetInfo = useGrassTilesetInfo();
+export default function GrassCell({ style, showWaterBackground, tilesetInfo }: { style?: React.CSSProperties, showWaterBackground?: boolean, tilesetInfo: { cols: number, rows: number, total: number } }) {
   const col = 0;
   const row = 0;
 
